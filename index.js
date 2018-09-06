@@ -65,6 +65,16 @@ app.post("/api/recipes", function(req, res, next) {
 		.catch(next);
 });
 
+app.get("/api/recipes/:id", function(req, res, next) {
+	helpers
+		.getRecipe(req.params.id)
+		.then(data => {
+			if (!data) return res.status(404).json({ message: "no reulst" });
+			res.status(200).json(data);
+		})
+		.catch(next);
+});
+
 app.use(function(err, _, res, _) {
 	console.error(err);
 	res.status(500).json({ message: "Something broke" });
