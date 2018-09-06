@@ -4,10 +4,10 @@ module.exports = {
 	development: {
 		client: "sqlite3",
 		connection: {
-			filename: "./db.sqlite3",
+			filename: "./db/db.sqlite3",
 		},
 		useNullAsDefault: true,
 		migrations: { directory: "./db/migrations" },
-		seeds: { director: ".db/seeds" },
+		seeds: { director: "./db/seeds" },
 	},
 };
