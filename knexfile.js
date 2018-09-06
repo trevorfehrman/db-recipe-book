@@ -8,6 +8,6 @@ module.exports = {
 		},
 		useNullAsDefault: true,
 		migrations: { directory: "./db/migrations" },
-		seeds: { director: "./db/seeds" },
+		seeds: { directory: "./db/seeds" },
 	},
 };
