@@ -10,17 +10,34 @@ module.exports = {
 	},
 
 	getDish(id) {
-		return db("dishes")
-			.select({
-				dish_name: "dishes.name",
-				recipe_name: "recipes.name",
-			})
-			.join("recipes", "recipes.dish_id", "dishes.id")
-			.where("dishes.id", id);
+		const dish = db("dishes")
+			.where("id", id)
+			.first();
+
+		const recipes = db("recipes")
+			.select("name", "id")
+			.where("dish_id", id);
+
+		return Promise.all([dish, recipes]).then(results => {
+			console.log(results);
+			let [dish, recipes] = results;
+			let result = { id: dish.id, name: dish.name, recipes: recipes };
+			return result;
+		});
 	},
-	getRecipes(id) {
-		return db("recipes");
-	},
+
+	// getDish(id) {
+	// 	return db("dishes")
+	// 		.select({
+	// 			dish_name: "dishes.name",
+	// 			recipe_name: "recipes.name",
+	// 		})
+	// 		.join("recipes", "recipes.dish_id", "dishes.id")
+	// 		.where("dishes.id", id);
+	// },
+	// getRecipes(id) {
+	// 	return db("recipes");
+	// },
 
 	addRecipe(recipe) {
 		return db("recipes").insert(recipe);
